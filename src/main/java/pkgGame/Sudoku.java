@@ -48,6 +48,8 @@ public class Sudoku extends LatinSquare {
 	 * @throws Exception
 	 *             if the iSize given doesn't have a whole number square root
 	 */
+
+	
 	public Sudoku(int iSize) throws Exception {
 
 		this.iSize = iSize;
@@ -256,6 +258,7 @@ public class Sudoku extends LatinSquare {
 	/**
 	 * isValidValue - test to see if a given value would 'work' for a given column /
 	 * row
+	 * -Revised 10/6/2018 to use isValidColumnValue, isValidRowValue, and isValidRegionValue methods
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
@@ -269,19 +272,40 @@ public class Sudoku extends LatinSquare {
 	 */
 	public boolean isValidValue(int iRow,int iCol,  int iValue) {
 		
-		if (doesElementExist(super.getRow(iRow),iValue))
+		if (this.isValidColumnValue(iCol, iValue))
 		{
 			return false;
 		}
-		if (doesElementExist(super.getColumn(iCol),iValue))
+		if (isValidRowValue(iRow, iValue))
 		{
 			return false;
 		}
-		if (doesElementExist(this.getRegion(iCol, iRow),iValue))
+		if (isValidRegionValue(iRow, iCol, iValue))
 		{
 			return false;
 		}
 		
+		return true;
+	}
+	
+	//Tests to see if a given value is already in the cell's column
+	public boolean isValidColumnValue(int iCol, int iValue) {
+		if (doesElementExist(super.getColumn(iCol),iValue))
+			return false;
+		return true;
+	}
+	
+	//Tests to see if a given value is already in the cell's row
+	public boolean isValidRowValue(int iRow, int iValue) {
+		if (doesElementExist(super.getRow(iRow),iValue))
+			return false;
+		return true;
+	}
+	
+	//Tests to see if a given value is already in the cell's region
+	public boolean isValidRegionValue(int iRow, int iCol, int iValue) {
+		if (doesElementExist(this.getRegion(iCol, iRow),iValue))
+			return false;
 		return true;
 	}
 

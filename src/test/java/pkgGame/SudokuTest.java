@@ -122,6 +122,58 @@ public class SudokuTest {
 		}
 
 	}
+	
+	@Test
+	public void isValidColumnValue_Test() {
+		int[][] puzzle = { {1,2,3,4}, {1,2,3,4}, {1,2,3,4}, {1,2,3,4}};
+		// Test which values 1-4 would work in column 2
+		try {
+			Sudoku s1 = new Sudoku(puzzle);
+			assertTrue(s1.isValidColumnValue(2, 1));
+			assertTrue(s1.isValidColumnValue(2, 2));
+			assertFalse(s1.isValidColumnValue(2, 3));
+			assertTrue(s1.isValidColumnValue(2, 4));
+
+		} catch (Exception e) {
+			fail("Test failed to build a Sudoku");
+		}
+
+	}
+	@Test
+	public void isValidRowValue_Test() {
+		int[][] puzzle = { {1,1,1,1}, {2,2,2,2}, {3,3,3,3}, {4,4,4,4}};
+		// Test which values 1-4 would work in row 1
+		try {
+			Sudoku s1 = new Sudoku(puzzle);
+			assertTrue(s1.isValidRowValue(1, 1));
+			assertFalse(s1.isValidRowValue(1, 2));
+			assertTrue(s1.isValidRowValue(1, 3));
+			assertTrue(s1.isValidRowValue(1, 4));
+
+		} catch (Exception e) {
+			fail("Test failed to build a Sudoku");
+		}
+
+	}
+	@Test
+	public void isValidRegionValue_Test() {
+		int[][] puzzle = { {1,1,2,2}, {1,1,2,2}, {3,3,4,4}, {3,3,4,4}};
+		// Test which values 1-4 would work in row 3 column 2 (region 3)
+		try {
+			Sudoku s1 = new Sudoku(puzzle);
+			assertTrue(s1.isValidRegionValue(3, 2, 1));
+			assertTrue(s1.isValidRegionValue(3, 2, 2));
+			assertTrue(s1.isValidRegionValue(3, 2, 3));
+			assertFalse(s1.isValidRegionValue(3, 2, 4));
+
+		} catch (Exception e) {
+			fail("Test failed to build a Sudoku");
+		}
+
+	}
+	//int[][] puzzle = new int[9][9];
+	//Sudoku s1 = new Sudoku(puzzle);
+	
 
 
 
