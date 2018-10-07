@@ -1,6 +1,8 @@
 package pkgGame;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 import pkgHelper.LatinSquare;
@@ -34,6 +36,15 @@ public class Sudoku extends LatinSquare {
 	 */
 
 	private int iSqrtSize;
+	
+	/**
+	 * cellMap - HashMap of Hashsets for every cell in puzzle. The key is an int or string representing the cell, from 0 to (iSize^2) -1.
+	 * 
+	 * @version 1.2
+	 * @since Lab #2
+	 */
+
+	private HashMap<Integer, HashSet> cellMap = new HashMap();
 
 	/**
 	 * Sudoku - for Lab #2... do the following:
@@ -258,7 +269,6 @@ public class Sudoku extends LatinSquare {
 	/**
 	 * isValidValue - test to see if a given value would 'work' for a given column /
 	 * row
-	 * -Revised 10/6/2018 to use isValidColumnValue, isValidRowValue, and isValidRegionValue methods
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
@@ -270,6 +280,7 @@ public class Sudoku extends LatinSquare {
 	 *            given value
 	 * @return - returns 'true' if the proposed value is valid for the row and column
 	 */
+	//-Revised 10/6/2018 to use isValidColumnValue, isValidRowValue, and isValidRegionValue methods
 	public boolean isValidValue(int iRow,int iCol,  int iValue) {
 		
 		if (this.isValidColumnValue(iCol, iValue))
@@ -434,4 +445,51 @@ public class Sudoku extends LatinSquare {
 			ar[i] = a;
 		}
 	}
+	/**
+	 * buildCellSet Builds a HashSet of integers of possible values for a cell.
+	 * It can build a HashSet from 1 to iSize, then use isValid method to remove ints that wouldn’t work.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 * @param cell
+	 */
+//	public HashSet<Integer> cellSet buildCellSet(int cell) {
+//		//TODO
+//	}
+	
+	/**
+	 * buildCellSet Builds a HashSet of integers of possible values for a cell.
+	 * It can build a HashSet from 1 to iSize, then use isValid method to remove ints that wouldn’t work.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 */
+//	public void updateCellMap() {
+//		//TODO
+//	}
+	
+	/**
+	 * pickValue Shuffles the HashSet of a chosen cell and makes that cell equal to the first value.
+	 * This function also has to run updateCellMap to update the possible values for all other cells.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 * @param cell
+	 */
+//	public int val updateCellMap(int cell) {
+//		//TODO
+//	}
+	
+	/**
+	 * FillRemaining This method will set the zero value cells with a valid value.
+	 * Uses pickValue for every cell that is zero.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 * @param cell
+	 */
+//	private void fillRemaining() {
+//		//TODO
+//	}
+	
 }
