@@ -1,7 +1,7 @@
 package pkgGame;
 
 import java.security.SecureRandom;
-import java.util.HashMap;
+import java.util.*;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -36,9 +36,10 @@ public class Sudoku extends LatinSquare {
 	 */
 
 	private int iSqrtSize;
-	
+
 	/**
-	 * cellMap - HashMap of Hashsets for every cell in puzzle. The key is an int or string representing the cell, from 0 to (iSize^2) -1.
+	 * cellMap - HashMap of Hashsets for every cell in puzzle. The key is an int or
+	 * string representing the cell, from 0 to (iSize^2) -1.
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
@@ -54,13 +55,10 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
-	 * @param iSize-
-	 *            length of the width/height of the puzzle
-	 * @throws Exception
-	 *             if the iSize given doesn't have a whole number square root
+	 * @param iSize- length of the width/height of the puzzle
+	 * @throws Exception if the iSize given doesn't have a whole number square root
 	 */
 
-	
 	public Sudoku(int iSize) throws Exception {
 
 		this.iSize = iSize;
@@ -83,13 +81,11 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
-	 * @param puzzle
-	 *            - given (working) Sudoku puzzle. Use for testing
-	 * @throws Exception
-	 *             will be thrown if the length of the puzzle do not have a whole
-	 *             number square root
+	 * @param puzzle - given (working) Sudoku puzzle. Use for testing
+	 * @throws Exception will be thrown if the length of the puzzle do not have a
+	 *                   whole number square root
 	 */
-	public Sudoku(int[][] puzzle) throws Exception {
+	public Sudoku(int[][] puzzle) throws Exception{
 		super(puzzle);
 		this.iSize = puzzle.length;
 		double SQRT = Math.sqrt(iSize);
@@ -154,10 +150,8 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
-	 * @param iCol
-	 *            given column
-	 * @param iRow
-	 *            given row
+	 * @param iCol given column
+	 * @param iRow given row
 	 * @return - returns a one-dimensional array from a given region of the puzzle
 	 */
 	public int[] getRegion(int iCol, int iRow) {
@@ -182,8 +176,7 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
-	 * @param r
-	 *            given region
+	 * @param r given region
 	 * @return - returns a one-dimensional array from a given region of the puzzle
 	 */
 
@@ -272,50 +265,46 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.2
 	 * @since Lab #2
-	 * @param iCol
-	 *            puzzle column
-	 * @param iRow
-	 *            puzzle row
-	 * @param iValue
-	 *            given value
-	 * @return - returns 'true' if the proposed value is valid for the row and column
+	 * @param iCol   puzzle column
+	 * @param iRow   puzzle row
+	 * @param iValue given value
+	 * @return - returns 'true' if the proposed value is valid for the row and
+	 *         column
 	 */
-	//-Revised 10/6/2018 to use isValidColumnValue, isValidRowValue, and isValidRegionValue methods
-	public boolean isValidValue(int iRow,int iCol,  int iValue) {
-		
-		if (this.isValidColumnValue(iCol, iValue))
-		{
+	// -Revised 10/6/2018 to use isValidColumnValue, isValidRowValue, and
+	// isValidRegionValue methods
+	public boolean isValidValue(int iRow, int iCol, int iValue) {
+
+		if (this.isValidColumnValue(iCol, iValue)) {
 			return false;
 		}
-		if (isValidRowValue(iRow, iValue))
-		{
+		if (isValidRowValue(iRow, iValue)) {
 			return false;
 		}
-		if (isValidRegionValue(iRow, iCol, iValue))
-		{
+		if (isValidRegionValue(iRow, iCol, iValue)) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
-	//Tests to see if a given value is already in the cell's column
+
+	// Tests to see if a given value is already in the cell's column
 	public boolean isValidColumnValue(int iCol, int iValue) {
-		if (doesElementExist(super.getColumn(iCol),iValue))
+		if (doesElementExist(super.getColumn(iCol), iValue))
 			return false;
 		return true;
 	}
-	
-	//Tests to see if a given value is already in the cell's row
+
+	// Tests to see if a given value is already in the cell's row
 	public boolean isValidRowValue(int iRow, int iValue) {
-		if (doesElementExist(super.getRow(iRow),iValue))
+		if (doesElementExist(super.getRow(iRow), iValue))
 			return false;
 		return true;
 	}
-	
-	//Tests to see if a given value is already in the cell's region
+
+	// Tests to see if a given value is already in the cell's region
 	public boolean isValidRegionValue(int iRow, int iCol, int iValue) {
-		if (doesElementExist(this.getRegion(iCol, iRow),iValue))
+		if (doesElementExist(this.getRegion(iCol, iRow), iValue))
 			return false;
 		return true;
 	}
@@ -378,8 +367,7 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.3
 	 * @since Lab #3
-	 * @param r
-	 *            - Given region number
+	 * @param r - Given region number
 	 */
 	private void SetRegion(int r) {
 		int iValue = 0;
@@ -412,8 +400,7 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.3
 	 * @since Lab #3
-	 * @param r
-	 *            - Given region number
+	 * @param r - Given region number
 	 */
 	private void ShuffleRegion(int r) {
 		int[] region = getRegion(r);
@@ -431,8 +418,7 @@ public class Sudoku extends LatinSquare {
 	 * 
 	 * @version 1.3
 	 * @since Lab #3
-	 * @param ar
-	 *            given one-dimension array
+	 * @param ar given one-dimension array
 	 */
 	private void shuffleArray(int[] ar) {
 
@@ -445,41 +431,58 @@ public class Sudoku extends LatinSquare {
 			ar[i] = a;
 		}
 	}
+
 	/**
-	 * buildCellSet Builds a HashSet of integers of possible values for a cell.
-	 * It can build a HashSet from 1 to iSize, then use isValid method to remove ints that wouldn’t work.
+	 * buildCellSet Builds a HashSet of integers of possible values for a cell. It
+	 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
+	 * that wouldn’t work.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 * @param iRow
+	 * @param iCol
+	 */
+	public HashSet<Integer> buildCellSet(int iRow, int iCol) {
+		// TODO
+		HashSet<Integer> cellSet = new HashSet<Integer>();
+		for (int i = 0; i < iSize; i++) {
+			cellSet.add(i + 1);
+		}
+		Iterator<Integer> cellSetIt = cellSet.iterator();
+		while (cellSetIt.hasNext()) {
+			if (!isValidValue(iRow, iCol, cellSetIt.next()))
+				cellSet.remove(cellSetIt.next());
+		}
+
+		return cellSet;
+
+	}
+
+	/**
+	 * buildCellSet Builds a HashSet of integers of possible values for a cell. It
+	 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
+	 * that wouldn’t work.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 */
+	public void updateCellMap() {
+		// TODO
+	}
+
+	/**
+	 * pickValue Shuffles the HashSet of a chosen cell and makes that cell equal to
+	 * the first value. This function also has to run updateCellMap to update the
+	 * possible values for all other cells.
 	 * 
 	 * @version 1.0
 	 * @since Lab #4
 	 * @param cell
 	 */
-//	public HashSet<Integer> cellSet buildCellSet(int cell) {
+//	public int updateCellMap(int cell) {
 //		//TODO
 //	}
-	
-	/**
-	 * buildCellSet Builds a HashSet of integers of possible values for a cell.
-	 * It can build a HashSet from 1 to iSize, then use isValid method to remove ints that wouldn’t work.
-	 * 
-	 * @version 1.0
-	 * @since Lab #4
-	 */
-//	public void updateCellMap() {
-//		//TODO
-//	}
-	
-	/**
-	 * pickValue Shuffles the HashSet of a chosen cell and makes that cell equal to the first value.
-	 * This function also has to run updateCellMap to update the possible values for all other cells.
-	 * 
-	 * @version 1.0
-	 * @since Lab #4
-	 * @param cell
-	 */
-//	public int val updateCellMap(int cell) {
-//		//TODO
-//	}
-	
+
 	/**
 	 * FillRemaining This method will set the zero value cells with a valid value.
 	 * Uses pickValue for every cell that is zero.
@@ -491,5 +494,5 @@ public class Sudoku extends LatinSquare {
 //	private void fillRemaining() {
 //		//TODO
 //	}
-	
+
 }

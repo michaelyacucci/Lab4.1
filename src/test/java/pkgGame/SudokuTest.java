@@ -1,6 +1,7 @@
 package pkgGame;
 
 import static org.junit.Assert.*;
+import java.util.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -171,6 +172,24 @@ public class SudokuTest {
 		}
 
 	}
+	@Test
+	public void buildCellSet_Test1() {
+		int[][] puzzle = { {1,2,0,0}, {3,4,0,0}, {0,0,4,1}, {0,0,2,3}};
+		try {
+			Sudoku s1 = new Sudoku(puzzle);
+			HashSet<Integer> hs1 = s1.buildCellSet(0, 2);
+		} catch (Exception e) {
+			fail("Test failed to build a Sudoku");
+		}
+//		assertFalse(s1.buildCellSet(0, 2).contains(1));
+//		assertFalse(s1.buildCellSet(0, 2).contains(2));
+//		assertTrue(s1.buildCellSet(0, 2).contains(3));
+//		assertFalse(s1.buildCellSet(0, 2).contains(4));
+//		assertTrue(s1.buildCellSet(0, 2).contains(0));
+		
+
+	}
+
 	//int[][] puzzle = new int[9][9];
 	//Sudoku s1 = new Sudoku(puzzle);
 	
