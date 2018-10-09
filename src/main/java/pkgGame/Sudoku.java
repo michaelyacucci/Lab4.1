@@ -44,8 +44,42 @@ public class Sudoku extends LatinSquare {
 	 * @version 1.2
 	 * @since Lab #2
 	 */
-
 	private HashMap<Integer, HashSet> cellMap = new HashMap();
+	/**
+	 * Cell a class which has one attribute, HashSet<Integers>, of possible values for that cell.
+	 * 
+	 * @version 1.0
+	 * @since Lab #4
+	 */	
+	private class Cell {
+		private HashSet<Integer> cellSet;
+		/**
+		 * buildCellSet Builds a HashSet of integers of possible values for a cell. It
+		 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
+		 * that wouldn’t work.
+		 * 
+		 * @version 1.0
+		 * @since Lab #4
+		 * @param iRow
+		 * @param iCol
+		 */
+		public void buildCellSet(int iRow, int iCol) {
+			for (int i = 0; i < iSize; i++) {
+				cellSet.add(i + 1);
+			}
+			Iterator<Integer> cellSetIt = cellSet.iterator();
+			
+			while (cellSetIt.hasNext()) {
+				if (!isValidValue(iRow, iCol, cellSetIt.next()))
+					cellSet.remove(cellSetIt.next());
+			}
+		}
+		public HashSet<Integer> getCellSet() {
+			return cellSet;
+		}
+		
+
+	}
 
 	/**
 	 * Sudoku - for Lab #2... do the following:
@@ -85,14 +119,14 @@ public class Sudoku extends LatinSquare {
 	 * @throws Exception will be thrown if the length of the puzzle do not have a
 	 *                   whole number square root
 	 */
-	public Sudoku(int[][] puzzle) throws Exception{
+	public Sudoku(int[][] puzzle) /*throws Exception*/{
 		super(puzzle);
 		this.iSize = puzzle.length;
 		double SQRT = Math.sqrt(iSize);
 		if ((SQRT == Math.floor(SQRT)) && !Double.isInfinite(SQRT)) {
 			this.iSqrtSize = (int) SQRT;
-		} else {
-			throw new Exception("Invalid size");
+//		} else {
+//			throw new Exception("Invalid size");
 		}
 
 	}
@@ -432,31 +466,6 @@ public class Sudoku extends LatinSquare {
 		}
 	}
 
-	/**
-	 * buildCellSet Builds a HashSet of integers of possible values for a cell. It
-	 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
-	 * that wouldn’t work.
-	 * 
-	 * @version 1.0
-	 * @since Lab #4
-	 * @param iRow
-	 * @param iCol
-	 */
-	public HashSet<Integer> buildCellSet(int iRow, int iCol) {
-		// TODO
-		HashSet<Integer> cellSet = new HashSet<Integer>();
-		for (int i = 0; i < iSize; i++) {
-			cellSet.add(i + 1);
-		}
-		Iterator<Integer> cellSetIt = cellSet.iterator();
-		while (cellSetIt.hasNext()) {
-			if (!isValidValue(iRow, iCol, cellSetIt.next()))
-				cellSet.remove(cellSetIt.next());
-		}
-
-		return cellSet;
-
-	}
 
 	/**
 	 * buildCellSet Builds a HashSet of integers of possible values for a cell. It
