@@ -172,6 +172,22 @@ public class SudokuTest {
 		}
 
 	}
+	@Test
+	public void isValidRegionValue_Test() {
+		int[][] puzzle = { {1,1,2,2}, {1,1,2,2}, {3,3,4,4}, {3,3,4,4}};
+		// Test which values 1-4 would work in row 3 column 2 (region 3)
+		try {
+			Sudoku s1 = new Sudoku(puzzle);
+			assertTrue(s1.isValidRegionValue(3, 2, 1));
+			assertTrue(s1.isValidRegionValue(3, 2, 2));
+			assertTrue(s1.isValidRegionValue(3, 2, 3));
+			assertFalse(s1.isValidRegionValue(3, 2, 4));
+
+		} catch (Exception e) {
+			fail("Test failed to build a Sudoku");
+		}
+
+	}
 //	@Test
 //	public void buildCellSet_Test1() {
 //		int[][] puzzle = { {1,2,0,0}, {3,4,0,0}, {0,0,4,1}, {0,0,2,3}};

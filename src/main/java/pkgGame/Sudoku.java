@@ -63,7 +63,7 @@ public class Sudoku extends LatinSquare {
 		 * @param iRow
 		 * @param iCol
 		 */
-		public void buildCellSet(int iRow, int iCol) {
+		public Cell(int iRow, int iCol) {
 			for (int i = 0; i < iSize; i++) {
 				cellSet.add(i + 1);
 			}
