@@ -81,7 +81,6 @@ public class Sudoku extends LatinSquare {
 		}
 		public void setLstValidValues() {
 			HashSet<Integer> validHash = new HashSet<Integer>();
-			HashSet<Integer> invalidHash = new HashSet<Integer>();
 			for (int i=1; i<=iSize; i++) {
 				if (isValidValue(iRow, iCol, i)) {
 					validHash.add(i);
@@ -407,7 +406,7 @@ public class Sudoku extends LatinSquare {
 	 * @version 1.3
 	 * @since Lab #3
 	 */
-	private void FillDiagonalRegions() {
+	public void FillDiagonalRegions() {
 
 		for (int i = 0; i < iSize; i = i + iSqrtSize) {
 			System.out.println("Filling region: " + getRegionNbr(i, i));
@@ -501,10 +500,10 @@ public class Sudoku extends LatinSquare {
 		}
 	}
 
-	public HashSet getAllValidCellValues(int iRow, int iCol) {
+	public HashSet<Integer> getAllValidCellValues(int iRow, int iCol) {
 		Cell newCell = new Cell(iRow, iCol);
 		newCell.setLstValidValues();
-		HashSet cellHashSet = new HashSet<Integer>(newCell.getLstValidValues());
+		HashSet<Integer> cellHashSet = new HashSet<Integer>(newCell.getLstValidValues());
 		return cellHashSet;
 		
 	}
@@ -519,7 +518,6 @@ public class Sudoku extends LatinSquare {
 	public void SetCells() {
 		for (int cellNum=0; cellNum < iSize*iSize; cellNum++) {
 			Cell newCell = new Cell(cellNum / iSize, cellNum % iSize);
-			Integer num = new Integer(cellNum);
 			cells.put(newCell.hashCode(), getAllValidCellValues(newCell.getiRow(), newCell.iCol));
 		}
 	}
