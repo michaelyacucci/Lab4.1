@@ -247,7 +247,7 @@ public class SudokuTest {
 			s1.PrintPuzzle();
 			s1.SetCells();
 			System.out.println(s1.cells.keySet());
-			System.out.println(s1.cells.get(31).getiRow());
+			System.out.println(s1.cells.get(0).getiRow());
 
 			
 		} catch (Exception e) {

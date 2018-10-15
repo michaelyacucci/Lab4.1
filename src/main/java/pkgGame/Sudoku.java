@@ -59,6 +59,7 @@ public class Sudoku extends LatinSquare {
 		private ArrayList<Integer> lstValidValues = new ArrayList<Integer>();
 
 		public Cell(int iRow, int iCol) {
+			super();
 			this.iRow = iRow;
 			this.iCol = iCol;
 		}
@@ -73,11 +74,18 @@ public class Sudoku extends LatinSquare {
 
 		@Override
 		public int hashCode() {
-			return Objects.hash((iRow * iSize) + (iCol));
+			return (iRow * iSize) + iCol;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
+//			if (obj == this) {
+//				return true;
+//			}
+//			if (!(obj instanceof Cell)) {
+//				return false;
+//			}
+			
 			Cell cell1 = (Cell) obj;
 			return (cell1.iRow == this.iRow) && (cell1.iCol == this.iCol);
 		}
