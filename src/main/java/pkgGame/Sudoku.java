@@ -44,70 +44,79 @@ public class Sudoku extends LatinSquare {
 	 * @version 1.2
 	 * @since Lab #2
 	 */
-	private HashMap<Integer, HashSet> cells = new HashMap();
+	public HashMap<Integer, Sudoku.Cell> cells = new HashMap<Integer, Sudoku.Cell>();
+
 	/**
-	 * Cell a class which has one attribute, HashSet<Integers>, of possible values for that cell.
+	 * Cell a class which has one attribute, HashSet<Integers>, of possible values
+	 * for that cell.
 	 * 
 	 * @version 1.0
 	 * @since Lab #4
-	 */	
+	 */
 	public class Cell {
 		private int iCol;
 		private int iRow;
 		private ArrayList<Integer> lstValidValues = new ArrayList<Integer>();
-		
+
 		public Cell(int iRow, int iCol) {
 			this.iRow = iRow;
 			this.iCol = iCol;
 		}
+
 		public int getiCol() {
 			return iCol;
 		}
+
 		public int getiRow() {
 			return iRow;
 		}
+
 		@Override
 		public int hashCode() {
-			// TODO Auto-generated method stub
-			return Objects.hash(iRow, iCol);
+			return Objects.hash((iRow * iSize) + (iCol));
 		}
+
 		@Override
 		public boolean equals(Object obj) {
-			Cell cell1 = (Cell)obj;
+			Cell cell1 = (Cell) obj;
 			return (cell1.iRow == this.iRow) && (cell1.iCol == this.iCol);
 		}
+
 		public ArrayList<Integer> getLstValidValues() {
 			return lstValidValues;
 		}
+
 		public void setLstValidValues() {
 			HashSet<Integer> validHash = new HashSet<Integer>();
-			for (int i=1; i<=iSize; i++) {
+			for (int i = 1; i <= iSize; i++) {
 				if (isValidValue(iRow, iCol, i)) {
 					validHash.add(i);
 				}
 			}
 			lstValidValues = new ArrayList<Integer>(validHash);
 			lstValidValues.trimToSize();
-			
+
 		}
+
 		public void ShuffleValidValues() {
 			int[] arr = new int[lstValidValues.size()];
-			for(int i=0; i<lstValidValues.size(); i++) {
+			for (int i = 0; i < lstValidValues.size(); i++) {
 				arr[i] = lstValidValues.get(i);
 			}
 			shuffleArray(arr);
 			lstValidValues.clear();
-			for(int i=0; i<arr.length; i++) {
+			for (int i = 0; i < arr.length; i++) {
 				lstValidValues.add(i, arr[i]);
 			}
-			
+
 		}
+
 		public Sudoku.Cell GetNextCell(Sudoku.Cell c, int iSize) {
 			if (iCol < iSize - 1) {
-				Sudoku.Cell nextCell = new Sudoku.Cell(iRow, iCol +1);
+				Sudoku.Cell nextCell = new Sudoku.Cell(iRow, iCol + 1);
 				return nextCell;
 			} else {
-				Sudoku.Cell nextCell = new Sudoku.Cell(iRow +1, 0);
+				Sudoku.Cell nextCell = new Sudoku.Cell(iRow + 1, 0);
 				return nextCell;
 			}
 
@@ -153,7 +162,7 @@ public class Sudoku extends LatinSquare {
 	 * @throws Exception will be thrown if the length of the puzzle do not have a
 	 *                   whole number square root
 	 */
-	public Sudoku(int[][] puzzle) /*throws Exception*/{
+	public Sudoku(int[][] puzzle) /* throws Exception */ {
 		super(puzzle);
 		this.iSize = puzzle.length;
 		double SQRT = Math.sqrt(iSize);
@@ -356,6 +365,30 @@ public class Sudoku extends LatinSquare {
 		return true;
 	}
 
+	/**
+	 * isValidValue - test to see if a given value would 'work' for a given cell
+	 * 
+	 * @version 1.2
+	 * @since Lab #2
+	 * @param        Sudoku.Cell c
+	 * @param iValue given value
+	 * @return - returns 'true' if the proposed value is valid for the cell
+	 */
+	public boolean isValidValue(Sudoku.Cell c, int iValue) {
+
+		if (!isValidColumnValue(c.getiCol(), iValue)) {
+			return false;
+		}
+		if (!isValidRowValue(c.getiRow(), iValue)) {
+			return false;
+		}
+		if (!isValidRegionValue(c.getiRow(), c.getiCol(), iValue)) {
+			return false;
+		}
+
+		return true;
+	}
+
 	// Tests to see if a given value is already in the cell's column
 	public boolean isValidColumnValue(int iCol, int iValue) {
 		if (doesElementExist(super.getColumn(iCol), iValue))
@@ -505,20 +538,31 @@ public class Sudoku extends LatinSquare {
 		newCell.setLstValidValues();
 		HashSet<Integer> cellHashSet = new HashSet<Integer>(newCell.getLstValidValues());
 		return cellHashSet;
-		
+
 	}
+	public HashSet<Integer> getAllValidCellValues(Cell newCell, int iRow, int iCol) {
+		newCell.setLstValidValues();
+		HashSet<Integer> cellHashSet = new HashSet<Integer>(newCell.getLstValidValues());
+		return cellHashSet;
+
+	}
+
 	/**
-	 * SetCells Builds a HashMap of cells of possible values for a cell. It
-	 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
-	 * that wouldn’t work.
+	 * SetCells Builds a HashMap of cells of possible values for a cell. It can
+	 * build a HashSet from 1 to iSize, then use isValid method to remove ints that
+	 * wouldn’t work.
 	 * 
 	 * @version 1.0
 	 * @since Lab #4
 	 */
 	public void SetCells() {
-		for (int cellNum=0; cellNum < iSize*iSize; cellNum++) {
-			Cell newCell = new Cell(cellNum / iSize, cellNum % iSize);
-			cells.put(newCell.hashCode(), getAllValidCellValues(newCell.getiRow(), newCell.iCol));
+		for (int iRow = 0; iRow < iSize; iRow++) {
+			for (int iCol = 0; iCol < iSize; iCol++) {
+				Sudoku.Cell newCell = new Sudoku.Cell(iRow, iCol);
+				newCell.setLstValidValues();
+				newCell.ShuffleValidValues();
+				cells.put(newCell.hashCode(), newCell);
+			}
 		}
 	}
 

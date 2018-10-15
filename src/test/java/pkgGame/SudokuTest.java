@@ -205,32 +205,50 @@ public class SudokuTest {
 //		
 //
 //	}
+//	@Test
+//	public void buildCellSet_Test2() {
+//		//int[][] puzzle = { {1,2,0,0}, {3,4,0,0}, {0,0,4,1}, {0,0,2,3}};
+//		try {
+//			Sudoku s1 = new Sudoku(4);
+//			s1.FillDiagonalRegions();
+//			s1.PrintPuzzle();
+//			System.out.print(s1.getAllValidCellValues(0,0));
+//			System.out.print(s1.getAllValidCellValues(0,1));
+//			System.out.print(s1.getAllValidCellValues(0,2));
+//			System.out.print(s1.getAllValidCellValues(0,3));
+//			System.out.println();
+//			System.out.print(s1.getAllValidCellValues(1,0));
+//			System.out.print(s1.getAllValidCellValues(1,1));
+//			System.out.print(s1.getAllValidCellValues(1,2));
+//			System.out.print(s1.getAllValidCellValues(1,3));
+//			System.out.println();
+//			System.out.print(s1.getAllValidCellValues(2,0));
+//			System.out.print(s1.getAllValidCellValues(2,1));
+//			System.out.print(s1.getAllValidCellValues(2,2));
+//			System.out.print(s1.getAllValidCellValues(2,3));
+//			System.out.println();
+//			System.out.print(s1.getAllValidCellValues(3,0));
+//			System.out.print(s1.getAllValidCellValues(3,1));
+//			System.out.print(s1.getAllValidCellValues(3,2));
+//			System.out.print(s1.getAllValidCellValues(3,3));
+//			
+//		} catch (Exception e) {
+//			fail("Test failed to build a Sudoku");
+//		}
+//		
+//
+//	}
 	@Test
-	public void buildCellSet_Test2() {
-		//int[][] puzzle = { {1,2,0,0}, {3,4,0,0}, {0,0,4,1}, {0,0,2,3}};
+	public void setCells_Test1() {
+		int[][] puzzle = { {1,2,0,0}, {3,4,0,0}, {0,0,4,1}, {0,0,2,3}};
 		try {
-			Sudoku s1 = new Sudoku(4);
-			s1.FillDiagonalRegions();
+			Sudoku s1 = new Sudoku(puzzle);
+			//s1.FillDiagonalRegions();
 			s1.PrintPuzzle();
-			System.out.print(s1.getAllValidCellValues(0,0));
-			System.out.print(s1.getAllValidCellValues(0,1));
-			System.out.print(s1.getAllValidCellValues(0,2));
-			System.out.print(s1.getAllValidCellValues(0,3));
-			System.out.println();
-			System.out.print(s1.getAllValidCellValues(1,0));
-			System.out.print(s1.getAllValidCellValues(1,1));
-			System.out.print(s1.getAllValidCellValues(1,2));
-			System.out.print(s1.getAllValidCellValues(1,3));
-			System.out.println();
-			System.out.print(s1.getAllValidCellValues(2,0));
-			System.out.print(s1.getAllValidCellValues(2,1));
-			System.out.print(s1.getAllValidCellValues(2,2));
-			System.out.print(s1.getAllValidCellValues(2,3));
-			System.out.println();
-			System.out.print(s1.getAllValidCellValues(3,0));
-			System.out.print(s1.getAllValidCellValues(3,1));
-			System.out.print(s1.getAllValidCellValues(3,2));
-			System.out.print(s1.getAllValidCellValues(3,3));
+			s1.SetCells();
+			System.out.println(s1.cells.keySet());
+			System.out.println(s1.cells.get(31).getiRow());
+
 			
 		} catch (Exception e) {
 			fail("Test failed to build a Sudoku");
@@ -238,9 +256,6 @@ public class SudokuTest {
 		
 
 	}
-
-	//int[][] puzzle = new int[9][9];
-	//Sudoku s1 = new Sudoku(puzzle);
 	
 
 
