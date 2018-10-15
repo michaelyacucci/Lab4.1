@@ -69,12 +69,12 @@ public class Sudoku extends LatinSquare {
 		@Override
 		public int hashCode() {
 			// TODO Auto-generated method stub
-			return super.hashCode();
+			return Objects.hash(iRow, iCol);
 		}
 		@Override
 		public boolean equals(Object obj) {
-			// TODO Auto-generated method stub
-			return super.equals(obj);
+			Cell cell1 = (Cell)obj;
+			return (cell1.iRow == this.iRow) && (cell1.iCol == this.iCol);
 		}
 		public ArrayList<Integer> getLstValidValues() {
 			return lstValidValues;
@@ -344,13 +344,13 @@ public class Sudoku extends LatinSquare {
 	// isValidRegionValue methods
 	public boolean isValidValue(int iRow, int iCol, int iValue) {
 
-		if (this.isValidColumnValue(iCol, iValue)) {
+		if (!isValidColumnValue(iCol, iValue)) {
 			return false;
 		}
-		if (isValidRowValue(iRow, iValue)) {
+		if (!isValidRowValue(iRow, iValue)) {
 			return false;
 		}
-		if (isValidRegionValue(iRow, iCol, iValue)) {
+		if (!isValidRegionValue(iRow, iCol, iValue)) {
 			return false;
 		}
 
@@ -501,7 +501,13 @@ public class Sudoku extends LatinSquare {
 		}
 	}
 
-
+	public HashSet getAllValidCellValues(int iRow, int iCol) {
+		Cell newCell = new Cell(iRow, iCol);
+		newCell.setLstValidValues();
+		HashSet cellHashSet = new HashSet<Integer>(newCell.getLstValidValues());
+		return cellHashSet;
+		
+	}
 	/**
 	 * SetCells Builds a HashMap of cells of possible values for a cell. It
 	 * can build a HashSet from 1 to iSize, then use isValid method to remove ints
@@ -513,7 +519,8 @@ public class Sudoku extends LatinSquare {
 	public void SetCells() {
 		for (int cellNum=0; cellNum < iSize*iSize; cellNum++) {
 			Cell newCell = new Cell(cellNum / iSize, cellNum % iSize);
-			cells.put(cellNum, newCell);
+			Integer num = new Integer(cellNum);
+			cells.put(newCell.hashCode(), getAllValidCellValues(newCell.getiRow(), newCell.iCol));
 		}
 	}
 
