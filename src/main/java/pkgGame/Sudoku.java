@@ -119,14 +119,22 @@ public class Sudoku extends LatinSquare {
 
 		}
 
-		public Sudoku.Cell GetNextCell(Sudoku.Cell c, int iSize) {
-			if (iCol < iSize - 1) {
-				Sudoku.Cell nextCell = new Sudoku.Cell(iRow, iCol + 1);
-				return nextCell;
-			} else {
-				Sudoku.Cell nextCell = new Sudoku.Cell(iRow + 1, 0);
-				return nextCell;
+		public Sudoku.Cell GetNextCell(Sudoku.Cell c) {
+			
+			Integer index = c.hashCode();
+			
+			index++;
+			
+			if(index == iSize * iSize)
+				return null;
+			
+			while(getPuzzle()[c.getiRow()][c.getiCol()] != 0) {
+				
+				index++;
+				
 			}
+			
+			return (Sudoku.Cell) cells.get(index);
 
 		}
 
