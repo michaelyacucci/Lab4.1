@@ -125,7 +125,7 @@ public class Sudoku extends LatinSquare {
 			
 			index++;
 			
-			if(index == iSize * iSize)
+			if(index == iSize*iSize)
 				return null;
 			
 			while(getPuzzle()[c.getiRow()][c.getiCol()] != 0) {
