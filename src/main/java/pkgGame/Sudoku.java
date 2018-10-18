@@ -125,13 +125,11 @@ public class Sudoku extends LatinSquare {
 			
 			index++;
 			
-			if(index == iSize*iSize)
+			if(index >= iSize*iSize||index<0)
 				return null;
 			
-			while(getPuzzle()[c.getiRow()][c.getiCol()] != 0) {
-				
+			while(getPuzzle()[index/iSize][index%iSize-1] != 0) {
 				index++;
-				
 			}
 			
 			return (Sudoku.Cell) cells.get(index);
